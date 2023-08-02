@@ -46,13 +46,17 @@ BOARD_KERNEL_SEPARATED_DTBO := true
 TARGET_KERNEL_CONFIG := a30_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/a30
 
-# Kernel - prebuilt
+# Kernel
 TARGET_FORCE_PREBUILT_KERNEL := true
 ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/kernel
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilts/dtbo.img
 BOARD_KERNEL_SEPARATED_DTBO := 
 endif
+
+# Sepolicy
+BOARD_VENDOR_SEPOLICY_DIRS += \
+    $(COMMON_PATH)/sepolicy/vendor
 
 # Partitions
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
@@ -87,6 +91,8 @@ BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
 # VINTF
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
+
+BUILD_BROKEN_DUP_RULES := true
 
 # Inherit the proprietary files
 include vendor/samsung/a30/BoardConfigVendor.mk
